@@ -1,0 +1,206 @@
+/* Navbar  */
+.rounded-navbar {
+    border-radius: 15px; /* Sesuaikan dengan tingkat kelengkungan yang diinginkan */
+    overflow: visible;    /* Pastikan konten tetap berada dalam area yang telah diberi rounded */
+    margin: 20px;        /* Tambahkan margin agar terlihat lebih baik */
+}
+
+.nav-item>a {
+    color: white;
+}
+
+.dropdown-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    z-index: 1000;
+    display: none;
+    float: left;
+    min-width: 10rem;
+    padding: 0.5rem 0;
+    margin: 0.125rem 0 0;
+    font-size: 1rem;
+    text-align: left;
+    list-style: none;
+    background-color: #ffffff;
+    background-clip: padding-box;
+    border: 1px solid rgba(0, 0, 0, 0.15);
+    border-radius: 0.25rem;
+}
+
+.dropdown-menu.show {
+    display: block;
+}
+
+#banner {
+    background-image: url('asset/suasana.jpeg'); /* Path to your image */
+    background-size: cover;
+    background-position: center;
+    height: 300px; /* Adjust the height as needed */
+    color: white;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem; /* Optional: Add padding for better spacing */
+    position: relative; /* Ensure the banner content stays in place */
+    overflow: hidden;
+}
+
+#banner::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: inherit;
+    background-size: cover;
+    background-position: center;
+    filter: blur(10px); /* Adjust the blur level as needed */
+    z-index: -1; /* Ensure it stays behind the content */
+}
+
+#banner .display-1 {
+    font-size: 4rem; /* Makes the heading text larger */
+}
+
+#banner .fs-4 {
+    font-size: 1.5rem; /* Makes the paragraph text larger */
+}
+
+#banner .fw-bold {
+    font-weight: 700; /* Makes the heading text bold */
+}
+
+#detail-menu {
+    width: 120px;
+    border-radius: 10px;
+}
+
+.form-item .form-control {
+    border: 1px solid cyan;
+    margin-bottom: 15px;
+}
+
+#aksi .btn {
+    background-color: 10px;
+}
+
+/* menu */
+/* #menu-navigasi{
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    width: 400px;
+} */
+
+#slogan-menu {
+    font-family: 'Inria Serif', serif;
+}
+
+#menu-list {
+    list-style: none;
+}
+
+#menu-list img {
+    width: 100px;
+    height: 100px
+}
+
+.menu-item {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+#menu-banner p{
+    font-family: "Ruda Bold", sans-serif;
+    font-size: 30px;
+    margin-bottom: 1px;
+}
+
+.button-beli {
+    background-color: #00B3D1;
+}
+
+/* Sub-menu */
+.sub-menu-container {
+    max-height: 80vh; /* Adjust viewport height as needed */
+    overflow-y: auto;
+    padding-right: 10px;
+}
+
+.sub-menu-container::-webkit-scrollbar {
+    width: 8px;
+}
+
+.sub-menu-container::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 10px;
+}
+
+.sub-menu-container::-webkit-scrollbar-thumb {
+    background: #CD9D8B;
+    border-radius: 10px;
+}
+
+/* Cart popup styles */
+
+.cart-popup {
+    position: fixed;
+    top: 50%;
+    right: 20px;
+    transform: translateY(-50%);
+    background-color: #fff;
+    border: 1px solid #ddd;
+    padding: 20px;
+    width: 300px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .cart-popup h5 {
+    margin-top: 0;
+  }
+  
+  .cart-items {
+    margin-bottom: 20px;
+  }
+  
+  .cart-item {
+    margin-bottom: 10px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  .cart-item span {
+    display: block;
+  }
+  
+  .cart-item .d-flex {
+    justify-content: space-between;
+  }
+  
+  .cart-item .d-flex span {
+    font-weight: bold;
+  }
+  
+  .cart-popup button {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    font-weight: bold;
+    border: none;
+    border-radius: 5px;
+    background-color: #4CAF50;
+    color: #fff;
+    cursor: pointer;
+  }
+  
+  .cart-popup button:hover {
+    background-color: #3e8e41;
+  }
