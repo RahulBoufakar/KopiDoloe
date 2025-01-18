@@ -26,6 +26,7 @@ Route::middleware('auth',)->group(function () {
     Route::resource('keuangan', KeuanganController::class);
     Route::resource('menu', MenuController::class);
     Route::get('pemesanan/invoice', [PemesananController::class, 'invoice'])->name('pemesanan.invoice');
+    Route::get('pemesanan/history', [PemesananController::class, 'history'])->name('pemesanan.history');
     Route::resource('pemesanan', PemesananController::class);
     Route::post('pemesanan/store', [PemesananController::class, 'store'])->middleware('web')->name('pemesanan.store');
 });

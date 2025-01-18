@@ -37,7 +37,7 @@
                                 </tr>
                             @endforeach
                             <tr>
-                                <td colspan="4">Toal Harga : {{ $data->total_harga}}</td>
+                                <td colspan="4">Total Harga : {{ $data->total_harga}}</td>
                             </tr>
                         </tbody>
                     </table>

@@ -25,21 +25,28 @@
                                     </div>
                                 </div>
                                 @auth
-                                    @if (Auth::user()->role == 'admin')
-                                        <div class="col-md-12 col-sm-12 mb-3">
-                                            <a class="text-decoration-none text-light" href="{{route('keuangan.index')}}">
-                                                <h3>Keuangan</h3>
-                                            </a>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-12 col-sm-12 mb-3">
-                                                <a class="text-decoration-none text-light" href="{{route('stoks.index')}}">
-                                                    <h3>Stok</h3>
-                                                </a>
-                                            </div>
-                                        </div>
-                                    @endif
+                                @if (Auth::user()->role == 'admin')
+                                <div class="col-md-12 col-sm-12 mb-3">
+                                    <a class="text-decoration-none text-light" href="{{route('keuangan.index')}}">
+                                        <h3>Keuangan</h3>
+                                    </a>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12 col-sm-12 mb-3">
+                                        <a class="text-decoration-none text-light" href="{{route('stoks.index')}}">
+                                            <h3>Stok</h3>
+                                        </a>
+                                    </div>
+                                </div>
+                                @endif
                                 @endauth
+                                <div class="row">
+                                    <div class="col-md-12 col-sm-12 mb-3 px-5">
+                                        <a class="text-decoration-none text-light" href="{{route('pemesanan.history')}}" >
+                                            <h3>Riwayat Pemesanan</h3>
+                                        </a>
+                                    </div>
+                                </div>
                                 <div class="row">
                                     <div class="col-md-12 col-sm-12 mb-3">
                                         <form action="{{route('logout')}}" method="POST">

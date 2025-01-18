@@ -104,6 +104,12 @@ class PemesananController extends Controller
         return view('pemesanan.invoice', compact('data'));
     }
 
+    public function history()
+    {
+        $data = Pemesanan::where('id_pelanggan', Auth::user()->id)->get();
+        return view('pemesanan.history', compact('data'));
+    }
+
     /**
      * Display the specified resource.
      */
