@@ -15,7 +15,7 @@ class MenuController extends Controller
     public function index()
     {
         $menus = Menu::all();
-        return view('menu.index', compact('menus'));
+        return view('admin.menu.index', compact('menus'));
     }
 
     /**
@@ -23,7 +23,7 @@ class MenuController extends Controller
      */
     public function create()
     {
-        return view('menu.create');
+        return view('admin.menu.create');
     }
 
     /**
@@ -61,7 +61,7 @@ class MenuController extends Controller
      */
     public function edit(Menu $menu)
     {
-        return view('menu.edit', compact('menu'));
+        return view('admin.menu.edit', compact('menu'));
     }
 
     /**

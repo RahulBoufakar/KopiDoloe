@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\StoksController;
 use App\Http\Controllers\KeuanganController;
@@ -10,6 +11,10 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('main');
 })->name('main');
+
+//admin Route
+Route::get('/admin', [AdminController::class, 'index'])->name('admin.index');
+
 
 Route::get('/dashboard', function () {
     return view('dashboard');
@@ -27,8 +32,8 @@ Route::middleware('auth',)->group(function () {
     Route::resource('menu', MenuController::class);
     Route::get('pemesanan/invoice', [PemesananController::class, 'invoice'])->name('pemesanan.invoice');
     Route::get('pemesanan/history', [PemesananController::class, 'history'])->name('pemesanan.history');
-    Route::resource('pemesanan', PemesananController::class);
     Route::post('pemesanan/store', [PemesananController::class, 'store'])->middleware('web')->name('pemesanan.store');
+    Route::resource('pemesanan', PemesananController::class);
 });
 
 require __DIR__.'/auth.php';

@@ -16,7 +16,7 @@ class KeuanganController extends Controller
     public function index()
     {
         $keuangans = Keuangan::all();
-        return view('keuangan.index', compact('keuangans'));
+        return view('admin.keuangan.index', compact('keuangans'));
     }
 
     /**
@@ -56,7 +56,7 @@ class KeuanganController extends Controller
      */
     public function edit(Keuangan $keuangan)
     {
-        return view('keuangan.edit', compact('keuangan'));
+        return view('admin.keuangan.edit', compact('keuangan'));
     }
 
     /**

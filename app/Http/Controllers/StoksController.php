@@ -15,7 +15,7 @@ class StoksController extends Controller
     public function index()
     {
         $stoks = stoks::all();
-        return view('stoks.index', compact('stoks'));
+        return view('admin.stoks.index', compact('stoks'));
     }
 
     /**
@@ -23,7 +23,7 @@ class StoksController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.stoks.create');
     }
 
     /**
@@ -31,11 +31,9 @@ class StoksController extends Controller
      */
     public function store(StorestoksRequest $request)
     {
-        //
         $data = new stoks();
         $data->nama_barang = $request->nama_barang;
         $data->jumlah = $request->jumlah;
-        $data->harga = $request->harga;
         $data->harga = $request->harga;
         $data->tanggal_kadaluwarsa = $request->tanggal_kadaluwarsa;
         $data->save();
@@ -56,7 +54,7 @@ class StoksController extends Controller
      */
     public function edit(stoks $stok)
     {
-        return view('stoks.edit', compact('stok'));
+        return view('admin.stoks.edit', compact('stok'));
     }
 
     /**

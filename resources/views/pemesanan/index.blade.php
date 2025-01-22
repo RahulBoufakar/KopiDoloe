@@ -97,7 +97,7 @@
                                                         <button class="btn btn-rounded button-beli fw-bold" id="button-{{$menu->id}}" type="button" onclick="showQuantityControls({{$menu->id}}, '{{$menu->name}}', {{$menu->harga}})">
                                                             Beli
                                                         </button>
-                                                        <span>Rp. {{$menu->harga}}</span>
+                                                        <span>Rp. {{number_format($menu->harga, '0', ',', '.')}}</span>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -141,7 +141,7 @@
                                                         <button class="btn btn-rounded button-beli fw-bold" id="button-{{$menu->id}}" type="button" onclick="showQuantityControls({{$menu->id}}, '{{$menu->name}}', {{$menu->harga}})">
                                                             Beli
                                                         </button>
-                                                        <span>Rp. {{$menu->harga}}</span>
+                                                        <span>Rp. {{number_format($menu->harga, '0', ',', '.')}}</span>
                                                         </div>
                                                     </div>
                                                 </div>

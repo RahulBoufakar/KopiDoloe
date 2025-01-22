@@ -14,15 +14,12 @@ use Illuminate\Support\Carbon;
 
 class PemesananController extends Controller
 {
-    // public function __construct()
-    // {
-    //     dd('controller instantiated');
-    // }
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
+        if(Auth::user()->role == 'admin') {
+            $data = Pemesanan::all();
+            return view('admin.pemesanan.history', compact('data'));
+        }
         $menus = Menu::all();
         return view('pemesanan.index', compact('menus'));
     }
@@ -44,68 +41,74 @@ class PemesananController extends Controller
      */
     public function store(StorePemesananRequest $request)
     {
-    $cartItems = json_decode($request->input('cartItems'), true);
-    $totalPrice = $request->input('totalPrice');
-    
-    // Store the cart items and total price to database
-    $data = new Pemesanan();
-    $data->id_pelanggan = Auth::user()->id;
-    $data->tanggal_pemesanan = Carbon::now();
-    $data->detail_pesanan = $request->cartItems; //save as json format
-    $data->total_harga = $totalPrice;
-    $data->status = "Belum Dibayar";
-    $data->save();
-    
-    // Get the latest order id
-    $data->order_id = Pemesanan::where('id_pelanggan', $data->id_pelanggan)->latest()->first()->id;
-    
-    
-    $data->detail_pesanan = $cartItems; //change to array
+        $cartItems = json_decode($request->input('cartItems'), true);
+        $totalPrice = $request->input('totalPrice');
+        
+        // Store the cart items and total price to database
+        $data = new Pemesanan();
+        $data->id_pelanggan = Auth::user()->id;
+        $data->tanggal_pemesanan = Carbon::now();
+        $data->detail_pesanan = $request->cartItems; //save as json format
+        $data->total_harga = $totalPrice;
+        $data->status = "Belum Dibayar";
+        $data->save();
+        
+        // Get the latest order id
+        $data->order_id = Pemesanan::where('id_pelanggan', $data->id_pelanggan)->latest()->first()->id;
+        
+        
+        $data->detail_pesanan = $cartItems; //change to array
 
-    //add detail pesanan to item_detal as array of detail pesanan
-    $item_detail = [];
-    foreach ($cartItems as $item) {
-        array_push($item_detail, $item); 
-    }
+        //add detail pesanan to item_detal as array of detail pesanan
+        $item_detail = [];
+        foreach ($cartItems as $item) {
+            array_push($item_detail, $item); 
+        }
 
-    // Set your Merchant Server Key
-    \Midtrans\Config::$serverKey = config('midtrans.server_key');
-    // Set to Development/Sandbox Environment (default). Set to true for Production Environment (accept real transaction).
-    \Midtrans\Config::$isProduction = false;
-    // Set sanitization on (default)
-    \Midtrans\Config::$isSanitized = true;
-    // Set 3DS transaction for credit card to true
-    \Midtrans\Config::$is3ds = true;
+        // Set your Merchant Server Key
+        \Midtrans\Config::$serverKey = config('midtrans.server_key');
+        // Set to Development/Sandbox Environment (default). Set to true for Production Environment (accept real transaction).
+        \Midtrans\Config::$isProduction = false;
+        // Set sanitization on (default)
+        \Midtrans\Config::$isSanitized = true;
+        // Set 3DS transaction for credit card to true
+        \Midtrans\Config::$is3ds = true;
 
-    $params = array(
-        'transaction_details' => array(
-            'order_id' => $data->order_id,
-            'gross_amount' => $data->total_harga,
-        ),
-        'customer_details' => array(
-            'first_name' => Auth::user()->name,
-            'email' => Auth::user()->email,
-            'city' => 'Ambon',
-            'country_code' => 'IDN',
-        ),
-        'item_details' => $item_detail,
-    );
-    $snapToken = \Midtrans\Snap::getSnapToken($params);
-    return view('pemesanan.konfirmasi', compact('snapToken','data'));
+        $params = array(
+            'transaction_details' => array(
+                'order_id' => $data->order_id,
+                'gross_amount' => $data->total_harga,
+            ),
+            'customer_details' => array(
+                'first_name' => Auth::user()->name,
+                'email' => Auth::user()->email,
+                'city' => 'Ambon',
+                'country_code' => 'IDN',
+            ),
+            'item_details' => $item_detail,
+        );
+        $snapToken = \Midtrans\Snap::getSnapToken($params);
+        return view('pemesanan.konfirmasi', compact('snapToken','data'));
     }
 
 
     public function invoice()
     {
         $data = Pemesanan::where('id_pelanggan', Auth::user()->id)->latest()->first();
-        $data->status = "Sudah Dibayar";
-        $data->save();
+        if($data->status == "Belum Dibayar") {
+            $data->status = "Sudah Dibayar";
+            $data->save();
+        }
         $data->detail_pesanan = json_decode($data->detail_pesanan);
         return view('pemesanan.invoice', compact('data'));
     }
 
     public function history()
     {
+        if(Auth::user()->role == 'admin') {
+            $data = Pemesanan::all();
+            return view('admin.pemesanan.history', compact('data'));
+        }
         $data = Pemesanan::where('id_pelanggan', Auth::user()->id)->get();
         return view('pemesanan.history', compact('data'));
     }

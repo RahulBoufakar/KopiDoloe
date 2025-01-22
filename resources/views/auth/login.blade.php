@@ -31,7 +31,6 @@
                                 <button class="form-control rounded-5 mt-4 w-50 mx-auto text-light fs-4" type="submit" class="btn" style="background-color: #B07C0C">Login</button>
                             </div>
                             <div class="form-group mt-2 d-flex justify-content-between">
-                                <a href="{{route('password.request')}}" style="text-decoration: none; color: white">forget password</a>
                                 <a style="text-decoration: none; color: white" href="{{route('register')}}">Register</a>
                             </div>
                         </form>
