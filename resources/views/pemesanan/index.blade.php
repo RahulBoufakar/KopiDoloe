@@ -94,9 +94,13 @@
                                                             <span id="quantity-{{$menu->id}}">0</span>
                                                             <button class="btn btn-sm btn-outline-secondary" onclick="increaseQuantity({{$menu->id}})">+</button>
                                                         </div>
-                                                        <button class="btn btn-rounded button-beli fw-bold" id="button-{{$menu->id}}" type="button" onclick="showQuantityControls({{$menu->id}}, '{{$menu->name}}', {{$menu->harga}})">
-                                                            Beli
-                                                        </button>
+                                                        @if (isset($stocks[$menu->id]) && $stocks[$menu->id] > 0)
+                                                            <button class="btn btn-rounded button-beli fw-bold" id="button-{{ $menu->id }}" type="button" onclick="showQuantityControls({{ $menu->id }}, '{{ $menu->name }}', {{ $menu->harga }})">
+                                                                Beli
+                                                            </button>
+                                                        @else
+                                                            <span class="text-danger fw-bold">Stok Habis</span>
+                                                        @endif
                                                         <span>Rp. {{number_format($menu->harga, '0', ',', '.')}}</span>
                                                         </div>
                                                     </div>
@@ -138,9 +142,13 @@
                                                             <span id="quantity-{{$menu->id}}">0</span>
                                                             <button class="btn btn-sm btn-outline-secondary" onclick="increaseQuantity({{$menu->id}})">+</button>
                                                         </div>
-                                                        <button class="btn btn-rounded button-beli fw-bold" id="button-{{$menu->id}}" type="button" onclick="showQuantityControls({{$menu->id}}, '{{$menu->name}}', {{$menu->harga}})">
-                                                            Beli
-                                                        </button>
+                                                        @if (isset($stocks[$menu->id]) && $stocks[$menu->id] > 0)
+                                                            <button class="btn btn-rounded button-beli fw-bold" id="button-{{ $menu->id }}" type="button" onclick="showQuantityControls({{ $menu->id }}, '{{ $menu->name }}', {{ $menu->harga }})">
+                                                                Beli
+                                                            </button>
+                                                        @else
+                                                            <span class="text-danger fw-bold">Stok Habis</span>
+                                                        @endif
                                                         <span>Rp. {{number_format($menu->harga, '0', ',', '.')}}</span>
                                                         </div>
                                                     </div>

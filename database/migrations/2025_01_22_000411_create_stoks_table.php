@@ -13,11 +13,12 @@ return new class extends Migration
     {
         Schema::create('stoks', function (Blueprint $table) {
             $table->id();
-            $table->string('nama_barang');
+            $table->unsignedBigInteger('menu_id');
             $table->integer('jumlah');
-            $table->decimal('harga', 10, 2);
-            $table->date('tanggal_kadaluwarsa');
             $table->timestamps();
+
+            // Menambahkan kunci asing
+            $table->foreign('menu_id')->references('id')->on('menu')->onDelete('cascade');
         });
     }
 
@@ -26,6 +27,11 @@ return new class extends Migration
      */
     public function down(): void
     {
+        Schema::table('stoks', function (Blueprint $table) {
+            $table->dropForeign(['menu_id']);
+            $table->dropColumn('menu_id');
+        });
+
         Schema::dropIfExists('stoks');
     }
 };

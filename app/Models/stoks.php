@@ -23,9 +23,13 @@ class stoks extends Model
      * @var array
      */
     protected $fillable = [
-        'nama_barang',
-        'harga',
+        'menu_id',
         'jumlah',
-        'tanggal_kadaluwarsa',
+        'nama_barang',
     ];
+
+    public function menu()
+    {
+        return $this->belongsTo(Menu::class);
+    }
 }

@@ -8,6 +8,7 @@ use App\Http\Requests\UpdatePemesananRequest;
 use Illuminate\Routing\Controller;
 use App\Models\Pemesanan;
 use App\Models\Menu;
+use App\Models\Stoks;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Carbon;
 
@@ -21,7 +22,8 @@ class PemesananController extends Controller
             return view('admin.pemesanan.history', compact('data'));
         }
         $menus = Menu::all();
-        return view('pemesanan.index', compact('menus'));
+        $stocks = Stoks::pluck('jumlah', 'menu_id');
+        return view('pemesanan.index', compact('menus', 'stocks'));
     }
 
     // In your PemesananController.php file
@@ -39,6 +41,7 @@ class PemesananController extends Controller
     /**
      * Store a newly created resource in storage.
      */
+
     public function store(StorePemesananRequest $request)
     {
         $cartItems = json_decode($request->input('cartItems'), true);
@@ -48,30 +51,32 @@ class PemesananController extends Controller
         $data = new Pemesanan();
         $data->id_pelanggan = Auth::user()->id;
         $data->tanggal_pemesanan = Carbon::now();
-        $data->detail_pesanan = $request->cartItems; //save as json format
+        $data->detail_pesanan = $request->cartItems; // save as JSON format
         $data->total_harga = $totalPrice;
         $data->status = "Belum Dibayar";
         $data->save();
         
         // Get the latest order id
         $data->order_id = Pemesanan::where('id_pelanggan', $data->id_pelanggan)->latest()->first()->id;
-        
-        
-        $data->detail_pesanan = $cartItems; //change to array
+        $data->detail_pesanan = $cartItems; // change to array
 
-        //add detail pesanan to item_detal as array of detail pesanan
+        // Add detail pesanan to item_detail as array of detail pesanan
         $item_detail = [];
         foreach ($cartItems as $item) {
-            array_push($item_detail, $item); 
+            array_push($item_detail, $item);
+            // Decrease stock quantity
+            $menu = Menu::find($item['id']);
+            $stok = Stoks::where('menu_id', $menu->id)->first();
+            if ($stok) {
+                $stok->jumlah -= $item['quantity'];
+                $stok->save();
+            }
         }
 
         // Set your Merchant Server Key
         \Midtrans\Config::$serverKey = config('midtrans.server_key');
-        // Set to Development/Sandbox Environment (default). Set to true for Production Environment (accept real transaction).
         \Midtrans\Config::$isProduction = false;
-        // Set sanitization on (default)
         \Midtrans\Config::$isSanitized = true;
-        // Set 3DS transaction for credit card to true
         \Midtrans\Config::$is3ds = true;
 
         $params = array(
@@ -90,6 +95,7 @@ class PemesananController extends Controller
         $snapToken = \Midtrans\Snap::getSnapToken($params);
         return view('pemesanan.konfirmasi', compact('snapToken','data'));
     }
+
 
 
     public function invoice()
