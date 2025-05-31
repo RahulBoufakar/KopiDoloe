@@ -18,4 +18,9 @@ class Menu extends Model
         'kategori',
         'gambar',
     ];
+
+    public function stoks()
+    {
+        return $this->hasMany(Stoks::class, 'menu_id');
+    }
 }

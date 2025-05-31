@@ -24,7 +24,8 @@ class StoksController extends Controller
      */
     public function create()
     {
-        $menus = Menu::all();
+        $stoks = Stoks::with('menu')->get();
+        $menus = Menu::whereDoesntHave('stoks')->get();
         return view('admin.stoks.create', compact('menus'));
     }
 
@@ -81,10 +82,7 @@ class StoksController extends Controller
      */
     public function update(UpdatestoksRequest $request, stoks $stok) 
     {
-        $stok->nama_barang = $request->nama_barang;
         $stok->jumlah = $request->jumlah;
-        $stok->harga = $request->harga;
-        $stok->tanggal_kadaluwarsa = $request->tanggal_kadaluwarsa;
         $stok->save();
 
         return redirect()->route('stoks.index');

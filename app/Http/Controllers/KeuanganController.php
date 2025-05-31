@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Keuangan;
+use App\Models\Pemesanan;
 use App\Http\Requests\StoreKeuanganRequest;
 use App\Http\Requests\UpdateKeuanganRequest;
 use Illuminate\Routing\Controller;
@@ -16,6 +17,7 @@ class KeuanganController extends Controller
     public function index()
     {
         $keuangans = Keuangan::all();
+        $pemesanans = Pemesanan::all();
         return view('admin.keuangan.index', compact('keuangans'));
     }
 

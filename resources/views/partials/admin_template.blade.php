@@ -130,12 +130,12 @@
                   <p>Menu</p>
                 </a>
               </li>
-              <li class="nav-item">
+              {{-- <li class="nav-item">
                 <a href="{{route('keuangan.index')}}" class="nav-link">
                   <i class="nav-icon bi bi-cash"></i>
                   <p>Keuangan</p>
                 </a>
-              </li>
+              </li> --}}
               <li class="nav-item">
                 <a href="{{route('stoks.index')}}" class="nav-link">
                   <i class="nav-icon bi bi-archive"></i>

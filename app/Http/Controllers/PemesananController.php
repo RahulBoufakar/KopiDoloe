@@ -81,7 +81,7 @@ class PemesananController extends Controller
 
         $params = array(
             'transaction_details' => array(
-                'order_id' => $data->order_id,
+                'order_id' => $data->order_id + Carbon::now()->timestamp,
                 'gross_amount' => $data->total_harga,
             ),
             'customer_details' => array(

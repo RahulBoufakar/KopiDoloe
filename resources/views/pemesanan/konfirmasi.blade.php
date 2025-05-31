@@ -44,9 +44,14 @@
     @php
         $order_id = $data->order_id;
     @endphp
-
 @endsection
+
+
+
 @section('script')
+<script type="text/javascript"
+      src="https://app.sandbox.midtrans.com/snap/snap.js"
+      data-client-key="{{config('midtrans.client_key')}}"></script>
 <script type="text/javascript">
     // For example trigger on button clicked, or any time you need
     var payButton = document.getElementById('pay-button');
@@ -55,8 +60,8 @@
       window.snap.pay('{{$snapToken}}', {
         onSuccess: function(result){
           /* You may add your own implementation here */
-          alert("payment success!"); console.log(result);
-          window.location.href = "{{ route('pemesanan.invoice') }}";
+            alert("payment success!"); console.log(result);
+            window.location.href = "{{route('pemesanan.invoice')}}";
         },
         onPending: function(result){
           /* You may add your own implementation here */
